@@ -10,14 +10,12 @@ GPUs passed through to VMs are supported.
 
 ## Installation
 
-Copy the folder to the Proxmox VE node and run the installer as root:
+On the Proxmox VE node, get the files (for example with
+`git clone https://github.com/olivdt/pve-gpu-stats.git`, or download the
+repository from GitHub), then run the installer as root from that folder:
 
 ```bash
-scp -r pve-gpu-stats root@YOUR_SERVER:/root/
-```
-
-```bash
-ssh root@YOUR_SERVER bash /root/pve-gpu-stats/install.sh
+bash install.sh
 ```
 
 At the end the installer prints what the collector detects (host GPUs, VMs with
@@ -25,7 +23,7 @@ a GPU passed through, and why a VM has no statistics if that is the case).
 Then reload the web interface (Ctrl+Shift+R): the charts show up after about a
 minute, once the first values are in.
 
-Running the same command again updates an existing installation.
+Running the installer again updates an existing installation.
 
 Requirements: a Proxmox VE node (written against the 9.x web interface), the
 NVIDIA driver and `nvidia-smi` on the host for host GPUs, and `python3` (the
@@ -102,15 +100,13 @@ journalctl -u pve-gpu-stats -n 30
 
 ## Status
 
-Tested with simulated data: a fake `nvidia-smi` and `qm`, a fake sysfs and VM
-configurations for the collector, and the real Proxmox VE Summary source code
-running in a browser (ExtJS 6.2) for the charts. Reports from real hardware and
-other Proxmox VE versions are welcome.
+Tested on Proxmox VE 9.2.11. Reports from other setups and Proxmox VE versions
+are welcome.
 
 ## Uninstall
 
 ```bash
-bash /root/pve-gpu-stats/install.sh --uninstall
+bash install.sh --uninstall
 ```
 
 Add `--purge` to also delete the history and the settings. As a last resort,
